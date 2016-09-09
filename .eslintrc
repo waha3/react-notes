@@ -30,7 +30,7 @@
   },
   "rules": {
     "no-var": 2,                     // http://eslint.org/docs/rules/no-var
-    "prefer-const": 2,               // http://eslint.org/docs/rules/prefer-const
+#    "prefer-const": 2,               // http://eslint.org/docs/rules/prefer-const
 
     /**
      * Variables
@@ -114,7 +114,7 @@
     /**
      * Style
      */
-    "indent": [2, 2],                // http://eslint.org/docs/rules/indent
+    "indent": [2, 2, { "SwitchCase": 1 }],                // http://eslint.org/docs/rules/indent
     "brace-style": [
       2,               // http://eslint.org/docs/rules/brace-style
       "1tbs", {
