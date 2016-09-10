@@ -1,15 +1,3 @@
-// const state = {
-//   noteList: [{
-//     content: 'xxxxx',
-//     active: true,
-//     favorite: false,
-//   }, {
-//     content: 'aaaaa',
-//     active: false,
-//     favorite: false
-//   }]
-// };
-
 import { combineReducers } from 'redux';
 import { ADD_NOTE, EDIT_NOTE, DELETE_NOTE, TOGGLE_FAVORITE, SELECT_NOTE } from '../actions/index.js';
 
@@ -23,34 +11,35 @@ function notesList(state = [], action) {
           });
         }),
         {
-          content: 'xxxx',
+          content: 'new note',
           active: true,
           favorite: false
         }
       ];
     case EDIT_NOTE:
-      return [
-        ...state.slice(0, action.index),
-        Object.assign({}, state[action.index], {
-          text: action.text,
-          favorite: false
-        }),
-        ...state.slice(action.index + 1)
-      ];
+      return state.map(value => {
+        if (value.active) {
+          return Object.assign({}, value, {
+            content: action.text
+          });
+        }
+        return Object.assign({}, value);
+      });
     case DELETE_NOTE:
-      return [
-        ...state.slice(0, action.index),
-        ...state.slice(action.index + 1)
-      ];
+      return state.filter(val => {
+        if (!val.active) {
+          return Object.assign({}, val);
+        }
+      });
     case TOGGLE_FAVORITE:
-      return [
-        ...state.slice(0, action.index),
-        Object.assign({}, state[action.index], {
-          text: action.text,
-          favorite: !state[action.index].favorite
-        }),
-        ...state.slice(action.index + 1)
-      ];
+      return state.map(val => {
+        if (val.active) {
+          return Object.assign({}, val, {
+            favorite: !val.favorite
+          });
+        }
+        return val;
+      });
     case SELECT_NOTE:
       return state.map((value, index) => {
         if (index === action.index) {

@@ -15,7 +15,7 @@ class Editor extends Component {
   render() {
     return (
       <div className="editor">
-        <textarea onKeyDown={() => this.handleKeyDown()} ref="textarea"></textarea>
+        <textarea onKeyDown = {() => this.handleKeyDown()} ref="textarea"></textarea>
       </div>
     );
   }
