@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { addNote, deleteNote, toggleFavorite, selectNote } from '../actions/index.js';
+import { addNote, deleteNote, toggleFavorite, selectNote, editNote } from '../actions/index.js';
 import ToolBar from '../components/ToolBar.js';
 import Lists from '../components/Lists.js';
 import Editor from '../components/Editor';
@@ -25,7 +25,9 @@ class App extends Component {
           onSelectNote = {index => dispatch(selectNote(index))}
           lists = {notesList}
         />
-        <Editor />
+      <Editor
+        onEditNote = {text => dispatch(editNote(text))}
+      />
       </div>
     );
   }

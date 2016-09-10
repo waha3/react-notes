@@ -8,6 +8,7 @@ class Lists extends Component {
   handleClick(index) {
     this.props.onSelectNote(index);
   }
+
   render() {
     return (
       <div className="note_lists">
@@ -19,7 +20,7 @@ class Lists extends Component {
         <div className="lists">
         {
           this.props.lists.map((v, i) =>
-            <div key = {i} onClick={() => this.handleClick(i)}>{v.text}</div>
+            <div className={v.active ? 'active' : ''} key = {i} onClick={() => this.handleClick(i)}>{v.content}</div>
           )
         }
         </div>

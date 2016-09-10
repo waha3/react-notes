@@ -1,3 +1,15 @@
+// const state = {
+//   noteList: [{
+//     content: 'xxxxx',
+//     active: true,
+//     favorite: false,
+//   }, {
+//     content: 'aaaaa',
+//     active: false,
+//     favorite: false
+//   }]
+// };
+
 import { combineReducers } from 'redux';
 import { ADD_NOTE, EDIT_NOTE, DELETE_NOTE, TOGGLE_FAVORITE, SELECT_NOTE } from '../actions/index.js';
 
@@ -5,9 +17,14 @@ function notesList(state = [], action) {
   switch (action.type) {
     case ADD_NOTE:
       return [
-        ...state,
+        ...state.map(value => {
+          return Object.assign({}, value, {
+            active: false
+          });
+        }),
         {
-          text: 'a new note',
+          content: 'xxxx',
+          active: true,
           favorite: false
         }
       ];
@@ -34,25 +51,24 @@ function notesList(state = [], action) {
         }),
         ...state.slice(action.index + 1)
       ];
-    default:
-      return state;
-  }
-}
-
-export function selectActive(state = 0, action) {
-  switch (action.type) {
-    case ADD_NOTE:
-      return state + 1;
     case SELECT_NOTE:
-      return action.index;
+      return state.map((value, index) => {
+        if (index === action.index) {
+          return Object.assign({}, value, {
+            active: true
+          });
+        }
+        return Object.assign({}, value, {
+          active: false
+        });
+      });
     default:
       return state;
   }
 }
 
 const noteApp = combineReducers({
-  notesList,
-  selectActive
+  notesList
 });
 
 export default noteApp;

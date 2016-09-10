@@ -36,3 +36,4 @@ Both Node server and frontend code runs with Babel. And all of it is linted. Wit
 
 ### Beautify
 With a beautify package installed in your editor it will also do that
+"# react-notes"  git init git add README.md git commit -m "first commit" git remote add origin https://github.com/waha3/react-notes.git git push -u origin master
