@@ -13,7 +13,7 @@ class App extends Component {
   }
 
   render() {
-    const { dispatch, notesList, filters } = this.props;
+    const { dispatch, notesList, filters, editContent } = this.props;
     return (
       <div className="note_app">
         <ToolBar
@@ -29,6 +29,7 @@ class App extends Component {
         />
       <Editor
         onEditNote={text => dispatch(editNote(text))}
+        editContent={editContent}
       />
       </div>
     );
@@ -38,7 +39,8 @@ class App extends Component {
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
   notesList: PropTypes.array.isRequired,
-  filters: PropTypes.string.isRequired
+  filters: PropTypes.string.isRequired,
+  editContent: PropTypes.string.isRequired
 };
 
 function selectFilter(state) {
@@ -56,10 +58,21 @@ function selectFilter(state) {
   }
 }
 
+function filterContent(lists) {
+  let content = '';
+  for (let i of lists) {
+    if (i.active) {
+      content = i.content;
+    }
+  }
+  return content;
+}
+
 function select(state) {
   return {
     notesList: selectFilter(state),
-    filters: state.setFilterShow
+    filters: state.setFilterShow,
+    editContent: filterContent(state.notesList)
   };
 }
 

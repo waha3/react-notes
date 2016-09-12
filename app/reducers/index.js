@@ -1,6 +1,23 @@
 import { combineReducers } from 'redux';
 import { ADD_NOTE, EDIT_NOTE, DELETE_NOTE, TOGGLE_FAVORITE, SELECT_NOTE, FILTER_SHOW } from '../actions/index.js';
 
+function deleteNote(state) {
+  const tempArr = state.filter(val => {
+    if (!val.active) {
+      return val;
+    }
+  });
+
+  return tempArr.map((val, index) => {
+    if (index === 0) {
+      return Object.assign({}, val, {
+        active: true
+      });
+    } else {
+      return val;
+    }
+  });
+}
 
 function notesList(state = [], action) {
   switch (action.type) {
@@ -27,11 +44,7 @@ function notesList(state = [], action) {
         return Object.assign({}, value);
       });
     case DELETE_NOTE:
-      return state.filter(val => {
-        if (!val.active) {
-          return Object.assign({}, val);
-        }
-      });
+      return deleteNote(state);
     case TOGGLE_FAVORITE:
       return state.map(val => {
         if (val.active) {
@@ -65,7 +78,6 @@ function setFilterShow(state = 'show_all', action) {
       return state;
   }
 }
-
 
 const noteApp = combineReducers({
   notesList,
