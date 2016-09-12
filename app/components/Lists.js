@@ -9,13 +9,17 @@ class Lists extends Component {
     this.props.onSelectNote(index);
   }
 
+  handleClickFilterShow(filter) {
+    this.props.onFilterShow(filter);
+  }
+
   render() {
     return (
       <div className="note_lists">
-        <h2>NOTES WITH REDUX</h2>
+        <h2>redux notes</h2>
         <div className="activeBar">
-          <button className="active">All Notes</button>
-          <button>Favorites</button>
+          <button className={this.props.filters === 'show_all' ? 'active' : ''} onClick={() => this.handleClickFilterShow('show_all')}>All Notes</button>
+          <button className={this.props.filters === 'show_favorites' ? 'active' : ''} onClick={() => this.handleClickFilterShow('show_favorites')}>Favorites</button>
         </div>
         <div className="lists">
         {
@@ -31,7 +35,9 @@ class Lists extends Component {
 
 Lists.propTypes = {
   lists: PropTypes.array.isRequired,
-  onSelectNote: PropTypes.func.isRequired
+  filters: PropTypes.string.isRequired,
+  onSelectNote: PropTypes.func.isRequired,
+  onFilterShow: PropTypes.func.isRequired
 };
 
 export default Lists;

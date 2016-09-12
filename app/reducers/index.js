@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
-import { ADD_NOTE, EDIT_NOTE, DELETE_NOTE, TOGGLE_FAVORITE, SELECT_NOTE } from '../actions/index.js';
+import { ADD_NOTE, EDIT_NOTE, DELETE_NOTE, TOGGLE_FAVORITE, SELECT_NOTE, FILTER_SHOW } from '../actions/index.js';
+
 
 function notesList(state = [], action) {
   switch (action.type) {
@@ -56,8 +57,19 @@ function notesList(state = [], action) {
   }
 }
 
+function setFilterShow(state = 'show_all', action) {
+  switch (action.type) {
+    case FILTER_SHOW:
+      return action.filter;
+    default:
+      return state;
+  }
+}
+
+
 const noteApp = combineReducers({
-  notesList
+  notesList,
+  setFilterShow
 });
 
 export default noteApp;
